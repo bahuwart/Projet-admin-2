@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+  pc1:
+    build:
+      context: pc1/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.7
+    dns:
+      - 172.17.0.3
+
+  pc2:
+    build:
+      context: pc2/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.8
+    dns:
+      - 172.17.0.3
+
+  mail:
+    build:
+      context: mail/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.4
+    dns:
+      - 172.17.0.3
+  
+  dns:
+    build: 
+      context: dns/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.2
+    dns:
+      - 172.17.0.3
+    
+  soa:
+    build: 
+      context: soa/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.3
+    dns:
+      - 172.17.0.3
+  
+  db:
+    build: 
+      context: db/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.6
+    dns:
+      - 172.17.0.3
+
+  web:
+    build: 
+      context: web/
+      dockerfile: Dockerfile
+    networks:
+      intranet:
+        ipv4_address: 172.17.0.5
+    dns:
+      - 172.17.0.3
+
+networks:
+  intranet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.17.0.0/16
