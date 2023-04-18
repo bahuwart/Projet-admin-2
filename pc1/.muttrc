@@ -1,0 +1,12 @@
+set from="toto@woodytoys.interne"
+set ssl_starttls=no
+set ssl_force_tls=no
+set smtp_url = "smtp://mail.woodytoys.interne:25"
+
+# Imap settings
+set spoolfile="imap://toto@mail.woodytoys.interne/"
+set imap_user = "toto@woodytoys.interne"
+set imap_pass = "toto"
+set folder = "imap://toto@mail.woodytoys.interne/"
+
+set editor = "nano"
