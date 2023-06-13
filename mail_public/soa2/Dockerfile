@@ -1,0 +1,15 @@
+FROM ubuntu/bind9
+
+RUN apt-get update && apt-get install -y bind9
+RUN apt install bind9-utils
+
+COPY named.conf /etc/bind/
+COPY forward /etc/bind/
+COPY reverse /etc/bind/
+
+RUN mkdir /var/log/named
+
+EXPOSE 53/tcp
+EXPOSE 53/udp
+
+CMD ["/usr/sbin/named","-g"]
