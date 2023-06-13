@@ -7,9 +7,10 @@ services:
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.7
+        ipv4_address: 172.18.0.7
     dns:
-      - 172.17.0.3
+      - 172.18.0.3
+    container_name: pc1
 
   pc2:
     build:
@@ -17,9 +18,10 @@ services:
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.8
+        ipv4_address: 172.18.0.8
     dns:
-      - 172.17.0.3
+      - 172.18.0.3
+    container_name: pc2
 
   mail:
     build:
@@ -27,49 +29,60 @@ services:
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.4
+        ipv4_address: 172.18.0.4
     dns:
-      - 172.17.0.3
-  
+      - 172.18.0.3
+    container_name: mail
+
   dns:
-    build: 
+    build:
       context: dns/
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.2
+        ipv4_address: 172.18.0.2
     dns:
-      - 172.17.0.3
-    
+      - 172.18.0.3
+    container_name: dns
+
   soa:
-    build: 
+    build:
       context: soa/
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.3
+        ipv4_address: 172.18.0.3
     dns:
-      - 172.17.0.3
-  
+      - 172.18.0.3
+    container_name: soa
+
   db:
-    build: 
+    build:
       context: db/
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.6
+        ipv4_address: 172.18.0.6
     dns:
-      - 172.17.0.3
+      - 172.18.0.3
+    container_name: db
 
-  web:
-    build: 
-      context: web/
+  web2:
+    build:
+      context: web2/
       dockerfile: Dockerfile
     networks:
       intranet:
-        ipv4_address: 172.17.0.5
+        ipv4_address: 172.18.0.5
     dns:
-      - 172.17.0.3
+      - 172.18.0.3
+    container_name: web2
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - db
+
 
 networks:
   intranet:
@@ -77,4 +90,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.17.0.0/16
+        - subnet: 172.18.0.0/16
