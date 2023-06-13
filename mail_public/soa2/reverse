@@ -1,0 +1,15 @@
+$ORIGIN 166.236.52.in-addr.arpa.
+$TTL 86400
+@    IN     SOA     ns.m2-3.ephec-ti.be. hostmaster.m2-3.ephec-ti.be. (
+                    2001062501 ; serial
+                    21600      ; refresh after 6 hours
+                    3600       ; retry after 1 hour
+                    604800     ; expire after 1 week
+                    86400 )    ; minimum TTL of 1 day
+
+     IN     NS     ns.m2-3.ephec-ti.be.
+
+       IN     MX     mail.m2-3.ephec-ti.be.
+204    IN     PTR    ns.m2-3.ephec-ti.be.
+204    IN     PTR    www.m2-3.ephec-ti.be.
+204    IN     PTR    mail.m2-3.ephec-ti.be.
