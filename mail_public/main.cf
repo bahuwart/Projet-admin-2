@@ -1,0 +1,34 @@
+# Define server identity
+myhostname = mail.m2-3.ephec-ti.be
+mydomain = m2-3.ephec-ti.be
+
+# Outgoing mail must use this as source address domain
+myorigin = $mydomain
+
+# Accepting local mail delivery for those destinations
+mydestination = $myhostname localhost.$mydomain localhost $mydomain
+
+smtpd_banner = $myhostname ESMTP $mail_name
+
+# TLS
+smtp_use_tls = yes
+smtpd_use_tls = yes
+smtpd_tls_auth_only = no
+smtpd_tls_key_file = /etc/postfix/ssl/mail.m2-3.ephec-ti.be.key
+smtpd_tls_cert_file = /etc/postfix/ssl/mail.m2-3.ephec-ti.be.crt
+smtpd_tls_CAfile = /etc/postfix/ssl/cacert.pem
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+tls_random_source = dev:/dev/urandom
+relayhost = [mail.m2-3.ephec-ti.be]:465
+
+# Network from which we accept smtp connections
+mynetworks = 0.0.0.0/0
+smtpd_relay_restrictions = permit_mynetworks, reject
+
+# Allow incoming mail from anywhere
+inet_interfaces = all
+
+# Log configuration
+maillog_file = /var/log/postfix.log
